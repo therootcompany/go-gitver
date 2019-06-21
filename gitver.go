@@ -19,13 +19,19 @@ var exactVer *regexp.Regexp
 var gitVer *regexp.Regexp
 var verFile = "generated-version.go"
 
+var (
+	GitRev       = "0000000"
+	GitVersion   = "v0.0.0-pre0+g0000000"
+	GitTimestamp = "0000-00-00T00:00:00+0000"
+)
+
 func init() {
 	// exactly vX.Y.Z (go-compatible semver)
 	exactVer = regexp.MustCompile(`^v\d+\.\d+\.\d+$`)
 
 	// vX.Y.Z-n-g0000000 git post-release, semver prerelease
 	// vX.Y.Z-dirty git post-release, semver prerelease
-	gitVer = regexp.MustCompile(`^(v\d+\.\d+)\.(\d+)-((\d+)-)?(dirty|g)`)
+	gitVer = regexp.MustCompile(`^(v\d+\.\d+)\.(\d+)(-(\d+))?(-(g[0-9a-f]+))?(-(dirty))?`)
 }
 
 func main() {
@@ -34,6 +40,11 @@ func main() {
 		arg := args[i]
 		if "-f" == arg || "--fail" == arg {
 			exitCode = 1
+		} else if "-V" == arg || "version" == arg || "-version" == arg || "--version" == arg {
+			fmt.Println(GitRev)
+			fmt.Println(GitVersion)
+			fmt.Println(GitTimestamp)
+			os.Exit(0)
 		}
 	}
 
@@ -46,7 +57,6 @@ func main() {
 	ver := semVer(desc)
 	ts, err := gitTimestamp(desc)
 	if nil != err {
-		fmt.Println("badtimes", err) // TODO remove
 		ts = time.Now()
 	}
 
@@ -137,6 +147,11 @@ func semVer(desc string) string {
 		}
 		// v1.0.1-pre1
 		ver = fmt.Sprintf("%s.%d-pre%s", vers[1], patch+1, vers[4])
+		fmt.Println(desc, vers)
+		if "dirty" == vers[8] {
+			//if strings.Contains(desc, "dirty") {
+			ver += "+dirty"
+		}
 	}
 	return ver
 }
@@ -151,9 +166,6 @@ func gitTimestamp(desc string) (time.Time, error) {
 	}
 	cmd := exec.Command(args[0], args[1:]...)
 	out, err := cmd.CombinedOutput()
-	fmt.Printf("args:\n%#v\n\n", args)
-	fmt.Printf("in:\n%s\n\n", strings.Join(args, " "))
-	fmt.Println("out:\n\n", string(out), err)
 	if nil != err {
 		// a dirty desc was probably used
 		return time.Time{}, err

@@ -61,11 +61,29 @@ func main() {
 
 # Behind the curtain
 
+These are the commands that are used under the hood to produce the versions.
+
+Shows the git tag + description. Assumes that you're using the semver format `v1.0.0` for your base tags.
+
 ```bash
 git describe --tags --dirty --always
 # v1.0.0
-# v1.0.0-1
+# v1.0.0-1-g0000000
+# v1.0.0-dirty
+```
 
-git log --format='format:%cI' -n 1 --since=(git describe --tags --dirty --always)
+Show the commit date (when the commit made it into the current tree).
+Internally we use the current date when the working tree is dirty.
+
+```bash
+git show v1.0.0-1-g0000000 --format=%cd --date=format:%Y-%m-%dT%H:%M:%SZ%z --no-patch
+# 2010-01-01T20:30:00Z-0600
+# fatal: ambiguous argument 'v1.0.0-1-g0000000-dirty': unknown revision or path not in the working tree.
+```
+
+Shows the most recent commit.
+
+```bash
 git rev-parse HEAD
+# 0000000000000000000000000000000000000000
 ```
