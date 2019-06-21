@@ -209,9 +209,9 @@ package {{ .Package }}
 
 func init() {
 	GitRev = "{{ .GitRev }}"
-	if "" != "{{ .Version }}" {
-		GitVersion = "{{ .Version }}"
-	}
+  {{- if .Version }}
+	GitVersion = "{{ .Version }}"
+	{{ end -}}
 	GitTimestamp = "{{ .Timestamp }}"
 }
 `))
