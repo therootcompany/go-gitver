@@ -142,13 +142,12 @@ func semVer(desc string) string {
 }
 
 func gitTimestamp(desc string) (time.Time, error) {
-	args := strings.Split(fmt.Sprintf("git show %s --format='%%cd' --date='%%Y-%%m-%%dT%%H:%%M:%%SZ%%z' --no-patch", desc), " ")
-	//args := strings.Split(fmt.Sprintf("git show %s --format='%%cd' --date='format:%%Y-%%m-%%dT%%H:%%M:%%SZ%%z' --no-patch", desc), " ")
+	args := strings.Split(fmt.Sprintf("git show %s --format '%%cd' --date 'format:%%Y-%%m-%%dT%%H:%%M:%%SZ%%z' --no-patch", desc), " ")
 	cmd := exec.Command(args[0], args[1:]...)
 	out, err := cmd.CombinedOutput()
-	fmt.Printf("foo:\n%#v\n", args)
-	fmt.Printf("bar:\n%s\n", strings.Join(args, " "))
-	fmt.Println("baz:\n", string(out), err)
+	fmt.Printf("args:\n%#v\n\n", args)
+	fmt.Printf("in:\n%s\n\n", strings.Join(args, " "))
+	fmt.Println("out:\n\n", string(out), err)
 	if nil != err {
 		// a dirty desc was probably used
 		return time.Time{}, err
