@@ -176,3 +176,20 @@ Shows the most recent commit.
 git rev-parse HEAD
 # 0000000000000000000000000000000000000000
 ```
+
+# Errors
+
+### cannot find package "."
+
+```txt
+package git.rootprojects.org/root/go-gitver: cannot find package "." in:
+	/Users/me/go-example/vendor/git.rootprojects.org/root/go-gitver
+cmd/example/example.go:1: running "go": exit status 1
+```
+
+You forgot to update deps and re-vendor:
+
+```bash
+go mod tidy
+go mod vendor
+```
