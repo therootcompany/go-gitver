@@ -142,7 +142,7 @@ func semVer(desc string) string {
 }
 
 func gitTimestamp(desc string) (time.Time, error) {
-	args := strings.Split(fmt.Sprintf("git show %s --format='%%cI' --no-patch", desc), " ")
+	args := strings.Split(fmt.Sprintf("git show %s --format='%%cd' --date='format:%%Y-%%m-%%dT%%H:%%M:%%SZ%%z' --no-patch", desc), " ")
 	cmd := exec.Command(args[0], args[1:]...)
 	out, err := cmd.CombinedOutput()
 	fmt.Printf("foo:\n%#v\n", args)
