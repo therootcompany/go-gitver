@@ -25,7 +25,7 @@ go build -mod=vendor -o hello *.go
 ```
 
 Note: If the source is distributed in a non-git tarball then
-`generated-version.go` will not be output, and whatever
+`version-generated.go` will not be output, and whatever
 version info is in `package main` will remain as-is.
 
 If you would prefer the build process to fail (i.e. in a CI/CD pipeline),

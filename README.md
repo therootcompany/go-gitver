@@ -12,12 +12,16 @@ Goal: Either use an exact version like v1.0.0
 
 # Demo
 
-Generate a `generated-version.go` file:
+Generate an `xversion.go` file:
 
 ```bash
 go run git.rootprojects.org/root/go-gitver
-cat generated-version.go
+cat xversion.go
 ```
+
+<small>**Note**: The file is named `xversion.go` by default so that the
+generated file's `init()` will come later, and thus take priority, over
+most other files.</small>
 
 See `go-gitver`s self-generated version:
 
@@ -60,6 +64,7 @@ You don't have to use `mod vendor`, but I highly recommend it.
 version           print version and exit
 --fail            exit with non-zero status code on failure
 --package <name>  will set the package name
+--outfile <name>  will replace `xversion.go` with the given file path
 ```
 
 ENVs

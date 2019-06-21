@@ -19,7 +19,7 @@ import (
 var exitCode int
 var exactVer *regexp.Regexp
 var gitVer *regexp.Regexp
-var verFile = "generated-version.go"
+var verFile = "xversion.go"
 
 var (
 	GitRev       = "0000000"
@@ -44,6 +44,9 @@ func main() {
 		arg := args[i]
 		if "-f" == arg || "--fail" == arg {
 			exitCode = 1
+		} else if ("--outfile" == arg || "-o" == arg) && len(args) > i+1 {
+			verFile = args[i+1]
+			args[i+1] = ""
 		} else if "--package" == arg && len(args) > i+1 {
 			pkg = args[i+1]
 			args[i+1] = ""
