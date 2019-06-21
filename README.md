@@ -142,7 +142,7 @@ the repository in itself and that would be... weird.
 
 # Why a tools package?
 
->     import "git.rootprojects.org/root/go-gitver" is a program, not an importable package
+> import "git.rootprojects.org/root/go-gitver" is a program, not an importable package
 
 Having a tools package with a build tag that you don't use is a nice way to add exact
 versions of a command package used for tooling to your `go.mod` with `go mod tidy`,
