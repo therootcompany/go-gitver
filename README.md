@@ -60,7 +60,7 @@ You don't have to use `mod vendor`, but I highly recommend it.
 
 # Options
 
-```
+```txt
 version           print version and exit
 --fail            exit with non-zero status code on failure
 --package <name>  will set the package name
@@ -69,7 +69,7 @@ version           print version and exit
 
 ENVs
 
-```
+```bash
 # Alias for --fail
 GITVER_FAIL=true
 ```
