@@ -2,16 +2,27 @@
 
 Use git tags to add semver to your go package.
 
->     Goal: Either use an exact version like v1.0.0
->           or translate the git version like v1.0.0-4-g0000000
->           to a semver like v1.0.1-pre4+g0000000
->
->           Fail gracefully when git repo isn't available.
+```txt
+Goal: Either use an exact version like v1.0.0
+      or translate the git version like v1.0.0-4-g0000000
+      to a semver like v1.0.1-pre4+g0000000
+
+      Fail gracefully when git repo isn't available.
+```
 
 # Demo
 
+Generate a `generated-version.go` file:
+
 ```bash
 go run git.rootprojects.org/root/go-gitver
+cat generated-version.go
+```
+
+See `go-gitver`s self-generated version:
+
+```bash
+go run git.rootprojects.org/root/go-gitver version
 ```
 
 # QuickStart
@@ -26,7 +37,7 @@ Add this to the top of your main file:
 Add a file that imports go-gitver (for versioning)
 
 ```go
-// build +tools
+// +build tools
 
 package example
 
@@ -46,8 +57,9 @@ You don't have to use `mod vendor`, but I highly recommend it.
 # Options
 
 ```
-version   print version and exit
---fail    will cause non-zero exit status on failure
+version           print version and exit
+--fail            exit with non-zero status code on failure
+--package <name>  will set the package name
 ```
 
 ENVs
@@ -73,7 +85,7 @@ go run -mod=vendor git.rootprojects.org/root/go-gitver version
 See `examples/basic`
 
 1. Create a `tools` package in your project
-2. Guard it against regular builds with `// build +tools`
+2. Guard it against regular builds with `// +build tools`
 3. Include `_ "git.rootprojects.org/root/go-gitver"` in the imports
 4. Declare `var GitRev, GitVersion, GitTimestamp string` in your `package main`
 5. Include `//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver` as well
@@ -81,7 +93,7 @@ See `examples/basic`
 `tools/tools.go`:
 
 ```go
-// build +tools
+// +build tools
 
 // This is a dummy package for build tooling
 package tools

@@ -20,6 +20,8 @@ These are the instructions that someone cloning the repo might use.
 ```bash
 go generate -mod=vendor ./...
 go build -mod=vendor -o hello *.go
+./hello
+./hello --version
 ```
 
 Note: If the source is distributed in a non-git tarball then
