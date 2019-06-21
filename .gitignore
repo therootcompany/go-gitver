@@ -1,3 +1,5 @@
+generated-version.go
+
 # ---> Go
 # Binaries for programs and plugins
 *.exe
