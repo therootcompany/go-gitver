@@ -6,7 +6,8 @@ Use **git tags** to add [**semver**](https://semver.org/) to your go package in 
 Goals: 
 
       1. Use an exact `git tag` version, like v1.0.0, when clean
-      2. Translate the `git describe` version  (v1.0.0-4-g0000000) to semver (v1.0.1-pre4+g0000000) in between releases
+      2. Translate the `git describe` version  (v1.0.0-4-g0000000)
+	     to semver (v1.0.1-pre4+g0000000) in between releases
       3. Note when `dirty` (and have build timestamp)
 
       Fail gracefully when git repo isn't available.
