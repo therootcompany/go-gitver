@@ -1,13 +1,39 @@
 # git-version.go
 
-Use git tags to add semver to your go package.
+Use **git tags** to add [**semver**](https://semver.org/) to your go package in under 150 [lines of code](https://git.rootprojects.org/root/go-gitver/src/branch/master/gitver/gitver.go).
 
 ```txt
-Goal: Either use an exact version like v1.0.0
-      or translate the git version like v1.0.0-4-g0000000
-      to a semver like v1.0.1-pre4+g0000000
+Goals: 
+
+      1. Use an exact `git tag` version, like v1.0.0, when clean
+      2. Translate the `git describe` version  (v1.0.0-4-g0000000) to semver (v1.0.1-pre4+g0000000) in between releases
+      3. Note when `dirty` (and have build timestamp)
 
       Fail gracefully when git repo isn't available.
+```
+
+# How it works
+
+You define the fallback variables in your `main.go`:
+
+```
+var (
+	GitRev       = "0000000"
+	GitVersion   = "v0.0.0-pre0+0000000"
+	GitTimestamp = "0000-00-00T00:00:00+0000"
+)
+```
+
+You `go generate` or `go run git.rootprojects.org/root/go-gitver` to generate `xversion.go`:
+
+```
+package main
+
+func init() {
+	GitRev = "0921ed1e"
+	GitVersion = "v1.1.2"
+	GitTimestamp = "2019-07-01T02:32:58-06:00"
+}
 ```
 
 # Demo
@@ -31,7 +57,7 @@ go run git.rootprojects.org/root/go-gitver version
 
 # QuickStart
 
-Add this to the top of your main file:
+Add this to the top of your main file, so that it runs with `go generate`:
 
 ```go
 //go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver
@@ -56,7 +82,7 @@ go generate -mod=vendor ./...
 go build -mod=vendor -o example cmd/example/*.go
 ```
 
-You don't have to use `mod vendor`, but I highly recommend it.
+You don't have to use `-mod=vendor`, but I highly recommend it (just `go mod tidy; go mod vendor` to start).
 
 # Options
 
