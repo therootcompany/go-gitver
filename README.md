@@ -28,7 +28,7 @@ var (
 
 func main() {
 	if (len(os.Args) > 1 && "version" === os.Args[1]) {
-		fmt.Println("My version is", GitVersion, "created at", GitTimestamp)
+		fmt.Printf("Foobar v%s (%s)", GitVersion, GitTimestamp)
 	}
 	// ...
 }
