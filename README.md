@@ -18,6 +18,8 @@ Goals:
 1. You define the fallback version and version printing in `main.go`:
 
 ```
+//go:generate go run git.rootprojects.org/root/go-gitver
+
 package main
 
 var (
@@ -28,7 +30,7 @@ var (
 
 func main() {
 	if (len(os.Args) > 1 && "version" === os.Args[1]) {
-		fmt.Printf("Foobar v%s (%s)", GitVersion, GitTimestamp)
+		fmt.Printf("Foobar %s (%s)\n", GitVersion, GitTimestamp)
 	}
 	// ...
 }
