@@ -15,6 +15,10 @@ Goals:
       Fail gracefully when git repo isn't available.
 ```
 
+# GoDoc
+
+See <https://pkg.go.dev/git.rootprojects.org/root/go-gitver>.
+
 # How it works
 
 1. You define the fallback version and version printing in `main.go`:
