@@ -14,9 +14,9 @@ func main() {
 	flag.Parse()
 
 	if *showVersion {
-		fmt.Println(version.GitRev)
-		fmt.Println(version.GitVersion)
-		fmt.Println(version.GitTimestamp)
+		fmt.Println(version.commit)
+		fmt.Println(version.version)
+		fmt.Println(version.date)
 		return
 	}
 

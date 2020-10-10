@@ -1,13 +1,15 @@
-# git-version.go
+# [Go GitVer](https://git.rootprojects.org/root/go-gitver)
 
-Use **git tags** to add [**semver**](https://semver.org/) to your go package in under 150 [lines of code](https://git.rootprojects.org/root/go-gitver/src/branch/master/gitver/gitver.go).
+Use **git tags** to add (GoRelesear-compatible) [**semver**](https://semver.org/)
+to your go package in under 150
+[lines of code](https://git.rootprojects.org/root/go-gitver/src/branch/master/gitver/gitver.go).
 
 ```txt
-Goals: 
+Goals:
 
       1. Use an exact `git tag` version, like v1.0.0, when clean
       2. Translate the `git describe` version  (v1.0.0-4-g0000000)
-	     to semver (v1.0.1-pre4+g0000000) in between releases
+	     to semver (1.0.1-pre4+g0000000) in between releases
       3. Note when `dirty` (and have build timestamp)
 
       Fail gracefully when git repo isn't available.
@@ -17,20 +19,20 @@ Goals:
 
 1. You define the fallback version and version printing in `main.go`:
 
-```
+```go
 //go:generate go run git.rootprojects.org/root/go-gitver
 
 package main
 
 var (
-	GitRev       = "0000000"
-	GitVersion   = "v0.0.0-pre0+0000000"
-	GitTimestamp = "0000-00-00T00:00:00+0000"
+	commit  = "0000000"
+	version = "0.0.0-pre0+0000000"
+	date    = "0000-00-00T00:00:00+0000"
 )
 
 func main() {
 	if (len(os.Args) > 1 && "version" === os.Args[1]) {
-		fmt.Printf("Foobar %s (%s)\n", GitVersion, GitTimestamp)
+		fmt.Printf("Foobar v%s (%s) %s\n", version, commit[:7], date)
 	}
 	// ...
 }
@@ -38,13 +40,13 @@ func main() {
 
 2. You `go generate` or `go run git.rootprojects.org/root/go-gitver` to generate `xversion.go`:
 
-```
+```go
 package main
 
 func init() {
-	GitRev = "0921ed1e"
-	GitVersion = "v1.1.2"
-	GitTimestamp = "2019-07-01T02:32:58-06:00"
+    commit  = "0921ed1e"
+    version = "1.1.2"
+    date    = "2019-07-01T02:32:58-06:00"
 }
 ```
 
@@ -62,9 +64,9 @@ cat xversion.go
 package main
 
 func init() {
-	GitRev = "6dace8255b52e123297a44629bc32c015add310a"
-	GitVersion = "v1.1.4-pre2+g6dace82"
-	GitTimestamp = "2020-07-16T20:48:15-06:00"
+	commit  = "6dace8255b52e123297a44629bc32c015add310a"
+	version = "1.1.4-pre2+g6dace82"
+	date    = "2020-07-16T20:48:15-06:00"
 }
 ```
 
@@ -147,7 +149,7 @@ See `examples/basic`
 1. Create a `tools` package in your project
 2. Guard it against regular builds with `// +build tools`
 3. Include `_ "git.rootprojects.org/root/go-gitver"` in the imports
-4. Declare `var GitRev, GitVersion, GitTimestamp string` in your `package main`
+4. Declare `var commit, version, date string` in your `package main`
 5. Include `//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver` as well
 
 `tools/tools.go`:
@@ -173,15 +175,15 @@ package main
 import "fmt"
 
 var (
-	GitRev       = "0000000"
-	GitVersion   = "v0.0.0-pre0+0000000"
-	GitTimestamp = "0000-00-00T00:00:00+0000"
+	commit  = "0000000"
+	version = "0.0.0-pre0+0000000"
+	date    = "0000-00-00T00:00:00+0000"
 )
 
 func main() {
-  fmt.Println(GitRev)
-  fmt.Println(GitVersion)
-  fmt.Println(GitTimestamp)
+  fmt.Println(commit)
+  fmt.Println(version)
+  fmt.Println(date)
 }
 ```
 
