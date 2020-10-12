@@ -17,14 +17,14 @@ Goals:
 
 # GoDoc
 
-See <https://pkg.go.dev/git.rootprojects.org/root/go-gitver>.
+See <https://pkg.go.dev/git.rootprojects.org/root/go-gitver/v2>.
 
 # How it works
 
 1. You define the fallback version and version printing in `main.go`:
 
 ```go
-//go:generate go run git.rootprojects.org/root/go-gitver
+//go:generate go run git.rootprojects.org/root/go-gitver/v2
 
 package main
 
@@ -42,7 +42,7 @@ func main() {
 }
 ```
 
-2. You `go generate` or `go run git.rootprojects.org/root/go-gitver` to generate `xversion.go`:
+2. You `go generate` or `go run git.rootprojects.org/root/go-gitver/v2` to generate `xversion.go`:
 
 ```go
 package main
@@ -59,7 +59,7 @@ func init() {
 Generate an `xversion.go` file:
 
 ```bash
-go run git.rootprojects.org/root/go-gitver
+go run git.rootprojects.org/root/go-gitver/v2
 cat xversion.go
 ```
 
@@ -81,7 +81,7 @@ most other files.</small>
 See `go-gitver`s self-generated version:
 
 ```bash
-go run git.rootprojects.org/root/go-gitver version
+go run git.rootprojects.org/root/go-gitver/v2 version
 ```
 
 ```txt
@@ -95,7 +95,7 @@ v1.1.4-pre2+g6dace82
 Add this to the top of your main file, so that it runs with `go generate`:
 
 ```go
-//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver
+//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver/v2
 
 ```
 
@@ -106,7 +106,7 @@ Add a file that imports go-gitver (for versioning)
 
 package example
 
-import _ "git.rootprojects.org/root/go-gitver"
+import _ "git.rootprojects.org/root/go-gitver/v2"
 ```
 
 Change you build instructions to be something like this:
@@ -138,12 +138,12 @@ GITVER_FAIL=true
 For example:
 
 ```go
-//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver --fail
+//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver/v2 --fail
 
 ```
 
 ```bash
-go run -mod=vendor git.rootprojects.org/root/go-gitver version
+go run -mod=vendor git.rootprojects.org/root/go-gitver/v2 version
 ```
 
 # Usage
@@ -152,9 +152,9 @@ See `examples/basic`
 
 1. Create a `tools` package in your project
 2. Guard it against regular builds with `// +build tools`
-3. Include `_ "git.rootprojects.org/root/go-gitver"` in the imports
+3. Include `_ "git.rootprojects.org/root/go-gitver/v2"` in the imports
 4. Declare `var commit, version, date string` in your `package main`
-5. Include `//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver` as well
+5. Include `//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver/v2` as well
 
 `tools/tools.go`:
 
@@ -165,14 +165,14 @@ See `examples/basic`
 package tools
 
 import (
-	_ "git.rootprojects.org/root/go-gitver"
+	_ "git.rootprojects.org/root/go-gitver/v2"
 )
 ```
 
 `main.go`:
 
 ```go
-//go:generate go run git.rootprojects.org/root/go-gitver --fail
+//go:generate go run git.rootprojects.org/root/go-gitver/v2 --fail
 
 package main
 
@@ -195,7 +195,7 @@ If you're using `go mod vendor` (which I highly recommend that you do),
 you'd modify the `go:generate` ever so slightly:
 
 ```go
-//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver --fail
+//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver/v2 --fail
 ```
 
 The only reason I didn't do that in the example is that I'd be included
@@ -203,7 +203,7 @@ the repository in itself and that would be... weird.
 
 # Why a tools package?
 
-> import "git.rootprojects.org/root/go-gitver" is a program, not an importable package
+> import "git.rootprojects.org/root/go-gitver/v2" is a program, not an importable package
 
 Having a tools package with a build tag that you don't use is a nice way to add exact
 versions of a command package used for tooling to your `go.mod` with `go mod tidy`,
@@ -243,8 +243,8 @@ git rev-parse HEAD
 ### cannot find package "."
 
 ```txt
-package git.rootprojects.org/root/go-gitver: cannot find package "." in:
-	/Users/me/go-example/vendor/git.rootprojects.org/root/go-gitver
+package git.rootprojects.org/root/go-gitver/v2: cannot find package "." in:
+	/Users/me/go-example/vendor/git.rootprojects.org/root/go-gitver/v2
 cmd/example/example.go:1: running "go": exit status 1
 ```
 

@@ -1,4 +1,4 @@
-//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver --fail
+//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver/v2 --fail
 
 package main
 

@@ -1,4 +1,4 @@
-//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver --package version --outfile ./version/zversion.go
+//go:generate go run -mod=vendor git.rootprojects.org/root/go-gitver/v2 --package version --outfile ./version/zversion.go
 
 package main
 
@@ -14,9 +14,9 @@ func main() {
 	flag.Parse()
 
 	if *showVersion {
-		fmt.Println(version.commit)
-		fmt.Println(version.version)
-		fmt.Println(version.date)
+		fmt.Println(version.Commit())
+		fmt.Println(version.Version())
+		fmt.Println(version.Date())
 		return
 	}
 
