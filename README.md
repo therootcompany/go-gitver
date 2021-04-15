@@ -28,6 +28,11 @@ See <https://pkg.go.dev/git.rootprojects.org/root/go-gitver/v2>.
 
 package main
 
+import (
+	"fmt"
+	"strings"
+)
+
 var (
 	commit  = "0000000"
 	version = "0.0.0-pre0+0000000"
@@ -35,7 +40,7 @@ var (
 )
 
 func main() {
-	if (len(os.Args) > 1 && "version" === os.Args[1]) {
+	if (len(os.Args) > 1 && "version" == strings.TrimLeft(os.Args[1], "-")) {
 		fmt.Printf("Foobar v%s (%s) %s\n", version, commit[:7], date)
 	}
 	// ...
