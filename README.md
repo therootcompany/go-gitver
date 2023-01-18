@@ -1,6 +1,6 @@
 # [Go GitVer](https://git.rootprojects.org/root/go-gitver)
 
-Use **git tags** to add (GoRelesear-compatible) [**semver**](https://semver.org/)
+Use **git tags** to add (GoReleaser-compatible) [**semver**](https://semver.org/)
 to your go package in under 150
 [lines of code](https://git.rootprojects.org/root/go-gitver/src/branch/master/gitver/gitver.go).
 
